@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'; 
-import { View, ViewPropTypes, StyleSheet } from 'react-native';
-
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, StyleSheet } from 'react-native';
 
 
 const OVERLAY_COLORS = {
@@ -12,46 +10,39 @@ const OVERLAY_COLORS = {
 };
 
 const styles = StyleSheet.create({
-  light: {backgroundColor: OVERLAY_COLORS.light },
-  xlight: {backgroundColor: OVERLAY_COLORS.xlight },
-  dark: {backgroundColor: OVERLAY_COLORS.dark },
-})
+  light: { backgroundColor: OVERLAY_COLORS.light },
+  xlight: { backgroundColor: OVERLAY_COLORS.xlight },
+  dark: { backgroundColor: OVERLAY_COLORS.dark },
+});
 
 const dStyles = StyleSheet.create({
-  light: {backgroundColor: '#EEEEEE' },
-  xlight: {backgroundColor: '#FFFFFF' },
-  dark: {backgroundColor: '#000000' },
-})
+  light: { backgroundColor: '#EEEEEE' },
+  xlight: { backgroundColor: '#FFFFFF' },
+  dark: { backgroundColor: '#000000' },
+});
 
 
-class BlurView extends PureComponent {
+function BlurView({ blurType, disabled, style }) {
+  const iStyle = disabled ? (dStyles[blurType] || dStyles.xlight)
+    : (styles[blurType] || styles.xlight);
 
-  render() {
-
-    const {  style, disabled } = this.props;
-
-    const iStyle = disabled ?  (dStyles[this.props.blurType] || dStyles.xlight) 
-    :  (styles[this.props.blurType] || styles.xlight) 
-
-    return (
-      <View
-        {...this.props}
-        style={[ iStyle, style ]}
-      />
-    );
-  }
+  return (
+    <View
+      {...this.props}
+      style={[ iStyle, style ]}
+    />
+  );
 }
 
 BlurView.propTypes = {
-  ...(ViewPropTypes || View.propTypes),
-  blurType: PropTypes.oneOf(['dark', 'light', 'xlight']),
+  blurType: PropTypes.oneOf([ 'dark', 'light', 'xlight' ]),
   disabled: PropTypes.bool,
+  style: PropTypes.any,
 };
 
 BlurView.defaultProps = {
   blurType: 'dark',
   disabled: true,
 };
-
 
 export default BlurView;
