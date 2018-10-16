@@ -1,11 +1,14 @@
 import React from 'react';
-import ReactNative from 'react-native';
+import { View } from 'react-native';
 
-class VibrancyView extends ReactNative.View {
+class VibrancyView extends React.Component {
   
   constructor(props){
-    super(props)
     console.warn("VibrancyView is not implemented on Android");
+  }
+
+  render(){
+    return <View {...this.props} />
   }
 
 }
