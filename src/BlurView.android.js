@@ -22,27 +22,35 @@ const dStyles = StyleSheet.create({
 });
 
 
-function BlurView({ blurType, disabled, style }) {
-  const iStyle = disabled ? (dStyles[blurType] || dStyles.xlight)
-    : (styles[blurType] || styles.xlight);
+export default class BlurView extends React.PureComponent {
 
-  return (
-    <View
-      {...this.props}
-      style={[ iStyle, style ]}
-    />
-  );
+  static propTypes = {
+    blurType: PropTypes.oneOf([ 'dark', 'light', 'xlight' ]),
+    disabled: PropTypes.bool,
+    style: PropTypes.any,
+  };
+  
+  static defaultProps = {
+    blurType: 'dark',
+    disabled: true,
+  };
+
+    render(){
+
+      const { blurType, disabled, style } = this.props;
+
+      const iStyle = disabled ? (dStyles[blurType] || dStyles.xlight)
+      : (styles[blurType] || styles.xlight);
+
+      return (
+        <View
+          {...this.props}
+          style={[ iStyle, style ]}
+        />
+      );
+    }
 }
 
-BlurView.propTypes = {
-  blurType: PropTypes.oneOf([ 'dark', 'light', 'xlight' ]),
-  disabled: PropTypes.bool,
-  style: PropTypes.any,
-};
 
-BlurView.defaultProps = {
-  blurType: 'dark',
-  disabled: true,
-};
 
 export default BlurView;
