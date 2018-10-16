@@ -50,7 +50,3 @@ export default class BlurView extends React.PureComponent {
       );
     }
 }
-
-
-
-export default BlurView;
